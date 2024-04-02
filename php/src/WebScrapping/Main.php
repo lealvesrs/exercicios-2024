@@ -5,7 +5,6 @@ namespace Chuva\Php\WebScrapping;
 error_reporting(E_ERROR | E_PARSE);
 
 
-
 class Main
 {
 

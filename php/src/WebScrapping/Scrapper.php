@@ -11,15 +11,9 @@ use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Common\Entity\Style\Color;
 use Box\Spout\Common\Entity\Style\Border;
 
-/**
- * Does the scrapping of a webpage.
- */
+
 class Scrapper
 {
-
-  /**
-   * Loads paper information from the HTML and returns the array with the data.
-   */
   public function scrap(\DOMDocument $dom): array
   {
     $array = [];
@@ -63,9 +57,9 @@ class Scrapper
         $array[] = $paper;
       }
     }
-
     return $array;
   }
+
 
   public static function writeToXlsx(array $data): void
   {
