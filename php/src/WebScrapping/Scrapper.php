@@ -6,6 +6,11 @@ use Chuva\Php\WebScrapping\Entity\Paper;
 use Chuva\Php\WebScrapping\Entity\Person;
 use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
+use Box\Spout\Common\Entity\Style\Color;
+use Box\Spout\Common\Entity\Style\Border;
+
 /**
  * Does the scrapping of a webpage.
  */
@@ -64,48 +69,57 @@ class Scrapper
 
   public static function writeToXlsx(array $data): void
   {
-      $writer = WriterEntityFactory::createXLSXWriter();
-      $writer->openToFile('./assets/results.xlsx');
+    $writer = WriterEntityFactory::createXLSXWriter();
+    $writer->openToFile('./assets/results.xlsx');
 
-      //creating the header content
-      $header = ["ID", "Title", "Type"];
+    //creating the header content
+    $header = ["ID", "Title", "Type"];
 
-      $maxAuthorsCount = max(array_map(function ($paper) {
-          return count($paper->authors);
-      }, $data));
+    $maxAuthorsCount = max(array_map(function ($paper) {
+      return count($paper->authors);
+    }, $data));
 
-      $i = 0;
-      while ($i <= $maxAuthorsCount) {
-          $newHeaderCell[] = "Author $i";
-          $newHeaderCell[] = "Author $i institution";
+    $i = 0;
+    while ($i <= $maxAuthorsCount) {
+      $newHeaderCell[] = "Author $i";
+      $newHeaderCell[] = "Author $i institution";
 
-          $i++;
+      $i++;
+    }
+
+    $header += $newHeaderCell;
+
+    //config header style
+    $border = (new BorderBuilder())
+      ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+      ->build();
+
+    $style = (new StyleBuilder())
+      ->setFontBold()
+      ->setBorder($border)
+      ->build();
+
+    //writing header
+    $row = WriterEntityFactory::createRowFromArray($header, $style);
+    $writer->addRow($row);
+
+
+    //adding the paper rows
+    foreach ($data as $paper) {
+      $row = [
+        $paper->id,
+        $paper->title,
+        $paper->type,
+      ];
+
+      foreach ($paper->authors as $author) {
+        $row[] = $author->name;
+        $row[] = $author->institution;
       }
 
-      $header += $newHeaderCell;
-
-      //writing header
-      $row = WriterEntityFactory::createRowFromArray($header);
-      $writer->addRow($row);
-
-
-      //adding the paper rows
-      foreach ($data as $paper) {
-          $row = [
-              $paper->id,
-              $paper->title,
-              $paper->type,
-          ];
-
-          foreach ($paper->authors as $author) {
-              $row[] = $author->name;
-              $row[] = $author->institution;
-          }
-
-          $rowFromValues = WriterEntityFactory::createRowFromArray($row);
-          $writer->addRow($rowFromValues);
-      }
-      $writer->close();
+      $rowFromValues = WriterEntityFactory::createRowFromArray($row);
+      $writer->addRow($rowFromValues);
+    }
+    $writer->close();
   }
-
 }
