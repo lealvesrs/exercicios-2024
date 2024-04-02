@@ -1,157 +1,144 @@
 <?php
 
-/**
- * Scrapper class to Webscrapping exercice.
- * php version 8.1.2
- * 
- * @file
- * @category Scrapper_Class
- * @package  Scrapper_Class
- * @author   Letícia <leticiadeoliveira.corp@gmail.com>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     https://github.com/lealvesrs/exercicios-2024
- */
 namespace Chuva\Php\WebScrapping;
 
+use Box\Spout\Common\Entity\Style\Border;
+use Box\Spout\Common\Entity\Style\Color;
+use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
+use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
+use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
 use Chuva\Php\WebScrapping\Entity\Paper;
 use Chuva\Php\WebScrapping\Entity\Person;
-use Box\Spout\Writer\Common\Creator\WriterEntityFactory;
-
-use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
-use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
-use Box\Spout\Common\Entity\Style\Color;
-use Box\Spout\Common\Entity\Style\Border;
 
 /**
  * Does the scrapping of a webpage.
- * php version 8.1.2
- * 
- * @file
- * @category Scrapper_Class
- * @package  Scrapper_Class
- * @author   Letícia <leticiadeoliveira.corp@gmail.com>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     https://github.com/lealvesrs/exercicios-2024
  */
-class Scrapper
-{
-    /** 
-     * Loads paper information from the HTML and returns the array with the data.
-     * 
-     * @param \DOMDocument $dom dom of html 
-     * 
-     * @return array
-     */
-    public function scrap(\DOMDocument $dom): array
-    {
-          $array = [];
-          $anchors = $dom->getElementsByTagName('a');
 
-        foreach ($anchors as $anchor) {
-            if ($anchor->childElementCount > 0) {
-                //finding the title
-                $title = $anchor->firstElementChild->textContent;
+/**
+ * Scrapper class to scrapping of a webpage.
+ */
+class Scrapper {
 
-                //finding the name of all authors and their institutions
-                $spans = $anchor->getElementsByTagName('span');
+  /**
+   * Loads paper information from the HTML and returns the array with the data.
+   *
+   * @param \DOMDocument $dom
+   *   Dom of html.
+   *
+   * @return array
+   *   Return the data scrapped.
+   */
+  public function scrap(\DOMDocument $dom): array {
+    $array = [];
+    $anchors = $dom->getElementsByTagName('a');
 
-                $authors = [];
-                foreach ($spans as $span) {
-                    $name = $span->textContent;
-                    $institution = $span->getAttribute('title');
+    foreach ($anchors as $anchor) {
+      if ($anchor->childElementCount > 0) {
+        // Finding the title.
+        $title = $anchor->firstElementChild->textContent;
 
-                    $authors[] = new Person(
-                        $name,
-                        $institution
-                    );
-                }
+        // Finding the name of all authors and their institutions.
+        $spans = $anchor->getElementsByTagName('span');
 
-                //finding the type of the paper
-                $div_type = $anchor->lastElementChild;
-                $type = $div_type->firstElementChild->textContent;
+        $authors = [];
+        foreach ($spans as $span) {
+          $name = $span->textContent;
+          $institution = $span->getAttribute('title');
 
-                //finding id paper
-                $div_volume = $div_type->lastElementChild;
-                $id_paper = $div_volume->textContent;
-
-                //creating the paper obj
-                $paper = new Paper(
-                    $id_paper,
-                    $title,
-                    $type,
-                    $authors
-                );
-
-                $array[] = $paper;
-            }
+          $authors[] = new Person(
+                $name,
+                $institution
+            );
         }
-        return $array;
+
+        // Finding the type of the paper.
+        $div_type = $anchor->lastElementChild;
+        $type = $div_type->firstElementChild->textContent;
+
+        // Finding id paper.
+        $div_volume = $div_type->lastElementChild;
+        $id_paper = $div_volume->textContent;
+
+        // Creating the paper obj.
+        $paper = new Paper(
+              $id_paper,
+              $title,
+              $type,
+              $authors
+          );
+
+        $array[] = $paper;
+      }
+    }
+    return $array;
+  }
+
+  /**
+   * Writes xlsx from captured data.
+   *
+   * @param array $data
+   *   Data scrapped.
+   *
+   * @return void
+   *   No return
+   */
+  public static function writeToXlsx(array $data): void {
+    $writer = WriterEntityFactory::createXLSXWriter();
+    $writer->openToFile('./assets/results.xlsx');
+
+    // Creating the header content.
+    $header = ["ID", "Title", "Type"];
+
+    $maxAuthorsCount = max(
+          array_map(
+              function ($paper) {
+                  return count($paper->authors);
+              },
+              $data
+          )
+      );
+
+    $i = 0;
+    while ($i <= $maxAuthorsCount) {
+      $newHeaderCell[] = "Author $i";
+      $newHeaderCell[] = "Author $i institution";
+
+      $i++;
     }
 
-     /** 
-      * Writes xlsx from captured data
-      * 
-      * @param array $data data scrapped 
-      * 
-      * @return void
-      */
-    public static function writeToXlsx(array $data): void
-    {
-        $writer = WriterEntityFactory::createXLSXWriter();
-        $writer->openToFile('./assets/results.xlsx');
+    $header += $newHeaderCell;
 
-        //creating the header content
-        $header = ["ID", "Title", "Type"];
+    // Config header style.
+    $border = (new BorderBuilder())
+      ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+      ->build();
 
-        $maxAuthorsCount = max(
-            array_map(
-                function ($paper) {
-                    return count($paper->authors);
-                }, $data
-            )
-        );
+    $style = (new StyleBuilder())
+      ->setFontBold()
+      ->setBorder($border)
+      ->build();
 
-        $i = 0;
-        while ($i <= $maxAuthorsCount) {
-            $newHeaderCell[] = "Author $i";
-            $newHeaderCell[] = "Author $i institution";
+    // Writing header.
+    $row = WriterEntityFactory::createRowFromArray($header, $style);
+    $writer->addRow($row);
 
-            $i++;
-        }
+    // Adding the paper rows.
+    foreach ($data as $paper) {
+      $row = [
+        $paper->id,
+        $paper->title,
+        $paper->type,
+      ];
 
-        $header += $newHeaderCell;
+      foreach ($paper->authors as $author) {
+        $row[] = $author->name;
+        $row[] = $author->institution;
+      }
 
-        //config header style
-        $border = (new BorderBuilder())
-            ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
-            ->build();
-
-        $style = (new StyleBuilder())
-            ->setFontBold()
-            ->setBorder($border)
-            ->build();
-
-        //writing header
-        $row = WriterEntityFactory::createRowFromArray($header, $style);
-        $writer->addRow($row);
-
-
-        //adding the paper rows
-        foreach ($data as $paper) {
-            $row = [
-            $paper->id,
-            $paper->title,
-            $paper->type,
-            ];
-
-            foreach ($paper->authors as $author) {
-                $row[] = $author->name;
-                $row[] = $author->institution;
-            }
-
-            $rowFromValues = WriterEntityFactory::createRowFromArray($row);
-            $writer->addRow($rowFromValues);
-        }
-        $writer->close();
+      $rowFromValues = WriterEntityFactory::createRowFromArray($row);
+      $writer->addRow($rowFromValues);
     }
+    $writer->close();
+  }
+
 }
