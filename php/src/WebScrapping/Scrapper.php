@@ -38,7 +38,7 @@ class Scrapper
     /** 
      * Loads paper information from the HTML and returns the array with the data.
      * 
-     * @param DOMDocument $dom dom of html 
+     * @param \DOMDocument $dom dom of html 
      * 
      * @return array
      */
