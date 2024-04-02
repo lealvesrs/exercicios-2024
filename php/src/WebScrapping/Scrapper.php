@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Scrapper class to Webscrapping exercice.
+ * php version 8.1.2
+ * 
+ * @file
+ * @category Scrapper_Class
+ * @package  Scrapper_Class
+ * @author   Letícia <leticiadeoliveira.corp@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/lealvesrs/exercicios-2024
+ */
 namespace Chuva\Php\WebScrapping;
 
 use Chuva\Php\WebScrapping\Entity\Paper;
@@ -11,109 +22,136 @@ use Box\Spout\Writer\Common\Creator\Style\BorderBuilder;
 use Box\Spout\Common\Entity\Style\Color;
 use Box\Spout\Common\Entity\Style\Border;
 
-
+/**
+ * Does the scrapping of a webpage.
+ * php version 8.1.2
+ * 
+ * @file
+ * @category Scrapper_Class
+ * @package  Scrapper_Class
+ * @author   Letícia <leticiadeoliveira.corp@gmail.com>
+ * @license  https://opensource.org/licenses/MIT MIT License
+ * @link     https://github.com/lealvesrs/exercicios-2024
+ */
 class Scrapper
 {
-  public function scrap(\DOMDocument $dom): array
-  {
-    $array = [];
-    $anchors = $dom->getElementsByTagName('a');
+    /** 
+     * Loads paper information from the HTML and returns the array with the data.
+     * 
+     * @param DOMDocument $dom dom of html 
+     * 
+     * @return array
+     */
+    public function scrap(\DOMDocument $dom): array
+    {
+          $array = [];
+          $anchors = $dom->getElementsByTagName('a');
 
-    foreach ($anchors as $anchor) {
-      if ($anchor->childElementCount > 0) {
-        //finding the title
-        $title = $anchor->firstElementChild->textContent;
+        foreach ($anchors as $anchor) {
+            if ($anchor->childElementCount > 0) {
+                //finding the title
+                $title = $anchor->firstElementChild->textContent;
 
-        //finding the name of all authors and their institutions
-        $spans = $anchor->getElementsByTagName('span');
+                //finding the name of all authors and their institutions
+                $spans = $anchor->getElementsByTagName('span');
 
-        $authors = [];
-        foreach ($spans as $span) {
-          $name = $span->textContent;
-          $institution = $span->getAttribute('title');
+                $authors = [];
+                foreach ($spans as $span) {
+                    $name = $span->textContent;
+                    $institution = $span->getAttribute('title');
 
-          $authors[] = new Person(
-            $name,
-            $institution
-          );
+                    $authors[] = new Person(
+                        $name,
+                        $institution
+                    );
+                }
+
+                //finding the type of the paper
+                $div_type = $anchor->lastElementChild;
+                $type = $div_type->firstElementChild->textContent;
+
+                //finding id paper
+                $div_volume = $div_type->lastElementChild;
+                $id_paper = $div_volume->textContent;
+
+                //creating the paper obj
+                $paper = new Paper(
+                    $id_paper,
+                    $title,
+                    $type,
+                    $authors
+                );
+
+                $array[] = $paper;
+            }
         }
+        return $array;
+    }
 
-        //finding the type of the paper
-        $div_type = $anchor->lastElementChild;
-        $type = $div_type->firstElementChild->textContent;
+     /** 
+      * Writes xlsx from captured data
+      * 
+      * @param array $data data scrapped 
+      * 
+      * @return void
+      */
+    public static function writeToXlsx(array $data): void
+    {
+        $writer = WriterEntityFactory::createXLSXWriter();
+        $writer->openToFile('./assets/results.xlsx');
 
-        //finding id paper
-        $div_volume = $div_type->lastElementChild;
-        $id_paper = $div_volume->textContent;
+        //creating the header content
+        $header = ["ID", "Title", "Type"];
 
-        //creating the paper obj
-        $paper = new Paper(
-          $id_paper,
-          $title,
-          $type,
-          $authors
+        $maxAuthorsCount = max(
+            array_map(
+                function ($paper) {
+                    return count($paper->authors);
+                }, $data
+            )
         );
 
-        $array[] = $paper;
-      }
+        $i = 0;
+        while ($i <= $maxAuthorsCount) {
+            $newHeaderCell[] = "Author $i";
+            $newHeaderCell[] = "Author $i institution";
+
+            $i++;
+        }
+
+        $header += $newHeaderCell;
+
+        //config header style
+        $border = (new BorderBuilder())
+            ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            ->build();
+
+        $style = (new StyleBuilder())
+            ->setFontBold()
+            ->setBorder($border)
+            ->build();
+
+        //writing header
+        $row = WriterEntityFactory::createRowFromArray($header, $style);
+        $writer->addRow($row);
+
+
+        //adding the paper rows
+        foreach ($data as $paper) {
+            $row = [
+            $paper->id,
+            $paper->title,
+            $paper->type,
+            ];
+
+            foreach ($paper->authors as $author) {
+                $row[] = $author->name;
+                $row[] = $author->institution;
+            }
+
+            $rowFromValues = WriterEntityFactory::createRowFromArray($row);
+            $writer->addRow($rowFromValues);
+        }
+        $writer->close();
     }
-    return $array;
-  }
-
-
-  public static function writeToXlsx(array $data): void
-  {
-    $writer = WriterEntityFactory::createXLSXWriter();
-    $writer->openToFile('./assets/results.xlsx');
-
-    //creating the header content
-    $header = ["ID", "Title", "Type"];
-
-    $maxAuthorsCount = max(array_map(function ($paper) {
-      return count($paper->authors);
-    }, $data));
-
-    $i = 0;
-    while ($i <= $maxAuthorsCount) {
-      $newHeaderCell[] = "Author $i";
-      $newHeaderCell[] = "Author $i institution";
-
-      $i++;
-    }
-
-    $header += $newHeaderCell;
-
-    //config header style
-    $border = (new BorderBuilder())
-      ->setBorderBottom(Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
-      ->build();
-
-    $style = (new StyleBuilder())
-      ->setFontBold()
-      ->setBorder($border)
-      ->build();
-
-    //writing header
-    $row = WriterEntityFactory::createRowFromArray($header, $style);
-    $writer->addRow($row);
-
-
-    //adding the paper rows
-    foreach ($data as $paper) {
-      $row = [
-        $paper->id,
-        $paper->title,
-        $paper->type,
-      ];
-
-      foreach ($paper->authors as $author) {
-        $row[] = $author->name;
-        $row[] = $author->institution;
-      }
-
-      $rowFromValues = WriterEntityFactory::createRowFromArray($row);
-      $writer->addRow($rowFromValues);
-    }
-    $writer->close();
-  }
 }
