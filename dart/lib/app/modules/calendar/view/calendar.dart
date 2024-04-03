@@ -1,7 +1,9 @@
+import 'package:chuva_dart/app/modules/calendar/controller/calendar_controller.dart';
 import 'package:chuva_dart/app/modules/calendar/view/components/calendar_bar.dart';
 import 'package:chuva_dart/app/modules/calendar/view/components/card_paper.dart';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
+import 'package:get/get.dart';
 
 class Calendar extends StatefulWidget {
   const Calendar({super.key});
@@ -11,6 +13,7 @@ class Calendar extends StatefulWidget {
 }
 
 class _CalendarState extends State<Calendar> {
+  final controller = Get.put(CalendarController());
 /*   DateTime _currentDate = DateTime(2023, 11, 26);
   bool _clicked = false;
 

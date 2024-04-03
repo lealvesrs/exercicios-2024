@@ -1,6 +1,6 @@
+import 'package:chuva_dart/app/helper/my_color.dart';
 import 'package:chuva_dart/app/modules/calendar/view/components/calendar_days.dart';
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
 
 class CalendarBar extends StatefulWidget {
   const CalendarBar({super.key});
@@ -17,7 +17,7 @@ class _CalendarBarState extends State<CalendarBar> {
       child: Container(
         height: 50,
         width: double.infinity,
-        color: fromCssColor("#306dc3"),
+        color: MyColor.blue,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
