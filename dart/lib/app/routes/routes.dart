@@ -1,4 +1,4 @@
-import 'package:chuva_dart/app/modules/home/view/calendar.dart';
+import 'package:chuva_dart/app/modules/calendar/view/calendar.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration
