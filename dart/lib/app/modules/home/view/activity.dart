@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
+import 'package:go_router/go_router.dart';
 
 class Activity extends StatefulWidget {
   const Activity({super.key});
@@ -8,36 +10,23 @@ class Activity extends StatefulWidget {
 }
 
 class _ActivityState extends State<Activity> {
-  bool _favorited = false;
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.inversePrimary,
-      child: Column(children: [
-        Text(
-          'Activity title',
-          style: Theme.of(context).textTheme.bodySmall,
-        ),
-        const Text('A Física dos Buracos Negros Supermassivos'),
-        const Text('Mesa redonda'),
-        const Text('Domingo 07:00h - 08:00h'),
-        const Text('Sthepen William Hawking'),
-        const Text('Maputo'),
-        const Text('Astrofísica e Cosmologia'),
-        ElevatedButton.icon(
-          onPressed: () {
-            setState(() {
-              _favorited = !_favorited;
-            });
-          },
-          icon: _favorited
-              ? const Icon(Icons.star)
-              : const Icon(Icons.star_outline),
-          label: Text(
-              _favorited ? 'Remover da sua agenda' : 'Adicionar à sua agenda'),
-        )
-      ]),
-    );
+    return Scaffold(
+        appBar: AppBar(
+            leading: BackButton(
+                color: fromCssColor("white"),
+                onPressed: () {
+                  context.go("/");
+                }),
+            centerTitle: true,
+            backgroundColor: fromCssColor("#456189"),
+            title: Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: Text(
+                'Chuva ❤️ Flutter',
+                style: TextStyle(color: fromCssColor("white")),
+              ),
+            )));
   }
 }

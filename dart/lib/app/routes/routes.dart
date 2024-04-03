@@ -1,4 +1,5 @@
 import 'package:chuva_dart/app/modules/calendar/view/calendar.dart';
+import 'package:chuva_dart/app/modules/home/view/activity.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration
@@ -7,6 +8,10 @@ final router = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const Calendar(),
+    ),
+    GoRoute(
+      path: '/activity',
+      builder: (context, state) => const Activity(),
     ),
   ],
 );
