@@ -21,7 +21,7 @@ class _CalendarDaysState extends State<CalendarDays> {
           widget.title,
           style: TextStyle(
               fontWeight: FontWeight.bold,
-              color: fromCssColor("gray"),
+              color: fromCssColor("lightgray"),
               fontSize: 15),
         ),
       ),
