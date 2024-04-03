@@ -1,8 +1,9 @@
 import 'package:chuva_dart/app/helper/my_color.dart';
 import 'package:chuva_dart/app/modules/activity/view/components/button_fav.dart';
-import 'package:chuva_dart/app/modules/activity/view/components/card_author.dart';
+import 'package:chuva_dart/app/modules/author/view/components/card_author.dart';
 import 'package:chuva_dart/app/modules/activity/view/components/text_info.dart';
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:go_router/go_router.dart';
 
 class Activity extends StatefulWidget {
@@ -34,7 +35,7 @@ class _ActivityState extends State<Activity> {
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
-            color: MyColor.white,
+            color: fromCssColor("orange"),
             height: 35,
             width: double.infinity,
             child: Padding(
