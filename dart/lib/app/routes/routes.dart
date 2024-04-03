@@ -1,5 +1,5 @@
 import 'package:chuva_dart/app/modules/calendar/view/calendar.dart';
-import 'package:chuva_dart/app/modules/home/view/activity.dart';
+import 'package:chuva_dart/app/modules/activity/view/activity.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration
