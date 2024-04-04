@@ -40,8 +40,9 @@ dependencies:
   get: ^4.6.6
   dio: ^5.4.2+1
   json_annotation:
-  intl: ^0.17.0
+  intl: ^0.18.0
   auto_size_text: ^3.0.0
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:chuva_dart/app/models/data_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/intl.dart';
@@ -18,6 +19,15 @@ class CalendarController extends GetxController {
   var dateFormat = DateFormat('yyyy-MM-dd');
   var currentDateFormat =
       DateFormat('yyyy-MM-dd').format(DateTime(2023, 11, 26));
+
+  var id = 0;
+  var desc = "";
+  var authors = [];
+  var local = "";
+  var info = "";
+  var title = "";
+  var category = "";
+  var color = "";
 
   void getPapers() async {
     final response = await dio.get(
@@ -56,7 +66,7 @@ class CalendarController extends GetxController {
   String formatTime(timeString) {
     DateTime dateTime = DateTime.parse(timeString);
 
-    String formattedTime = DateFormat('HH:mm:ss').format(dateTime);
+    String formattedTime = DateFormat('HH:mm').format(dateTime);
     return formattedTime;
   }
 
@@ -72,5 +82,19 @@ class CalendarController extends GetxController {
     } else {
       return "";
     }
+  }
+
+  void teste(Data item) {
+    id = item.id;
+    desc = item.description.ptBr ?? "";
+    title = item.title.ptBr ?? "";
+    authors = item.people;
+    local = item.locations[0].title.ptBr ?? "";
+    category = item.category.title.ptBr ?? "";
+    color = item.category.color ?? "";
+    String dayOfWeek = DateFormat('EEEE').format(DateTime.parse(item.start));
+
+    debugPrint(dayOfWeek.toString());
+    info = "${formatTime(item.start)}h - ${formatTime(item.end)}h";
   }
 }

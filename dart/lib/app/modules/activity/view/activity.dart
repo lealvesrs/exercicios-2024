@@ -2,8 +2,10 @@ import 'package:chuva_dart/app/helper/my_color.dart';
 import 'package:chuva_dart/app/modules/activity/view/components/button_fav.dart';
 import 'package:chuva_dart/app/modules/author/view/components/card_author.dart';
 import 'package:chuva_dart/app/modules/activity/view/components/text_info.dart';
+import 'package:chuva_dart/app/modules/calendar/controller/calendar_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 class Activity extends StatefulWidget {
@@ -14,6 +16,8 @@ class Activity extends StatefulWidget {
 }
 
 class _ActivityState extends State<Activity> {
+  final controller = Get.put(CalendarController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +39,13 @@ class _ActivityState extends State<Activity> {
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
-            color: fromCssColor("orange"),
+            color: fromCssColor(controller.color),
             height: 35,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Astrobiologia e Vida",
+                controller.category,
                 style: TextStyle(color: MyColor.white),
               ),
             ),
@@ -51,33 +55,48 @@ class _ActivityState extends State<Activity> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Vida aém da terra: uma perpspectiva astrobiologica",
+                    controller.title,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                 ),
-                const TextInfo(
-                    title: "Domingo 08:00h - 09:00h",
-                    icon: Icons.query_builder),
-                const TextInfo(title: "Pretória", icon: Icons.location_on),
+                TextInfo(title: controller.info, icon: Icons.query_builder),
+                TextInfo(title: controller.local, icon: Icons.location_on),
                 const ButtonFav(),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 20.0),
-                  child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dictum, nulla non tempor bibendum, urna dolor convallis erat, maximus auctor dolor sapien nec leo. Maecenas porta interdum sapien, eget pulvinar arcu. Aenean et faucibus justo. Integer felis justo, gravida a mattis nec, ultricies nec lectus. Donec blandit ornare neque at egestas. "),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: Text(controller.desc),
                 ),
                 Text(
-                  "Palestrante",
+                  controller.authors.isNotEmpty
+                      ? controller.authors[0].role.label.ptBr
+                      : "",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: MyColor.gray),
                 ),
-                const CardAuthor()
+                Visibility(
+                  visible: controller.authors.isNotEmpty,
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.authors.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = controller.authors[index];
+                        return CardAuthor(
+                          id: item.id,
+                          name: item.name,
+                          institution: item.institution ?? "",
+                          image: item.picture ?? "",
+                        );
+                      }),
+                )
               ],
             ),
           ),

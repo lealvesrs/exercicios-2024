@@ -28,7 +28,7 @@ class Author extends StatelessWidget {
         body: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const CardAuthor(),
+            /* const CardAuthor(), */
             Text(
               "Atividades",
               textAlign: TextAlign.start,
