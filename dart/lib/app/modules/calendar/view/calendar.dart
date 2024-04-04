@@ -73,16 +73,28 @@ class _CalendarState extends State<Calendar> {
               ],
             )),
       ),
-      body: const Column(
-        children: [
-          CalendarBar(),
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[CardPaper()],
-            ),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const CalendarBar(),
+            Obx(() {
+              return ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: controller.filteredList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    final item = controller.filteredList[index];
+                    return CardPaper(
+                      title: item.title.ptBr ?? "",
+                      color: item.category.color ?? "red",
+                      info:
+                          "${item.type.title.ptBr} de ${controller.formatTime(item.start)} até ${controller.formatTime(item.end)}",
+                      author: controller.formatAuthor(item.people),
+                    );
+                  });
+            }),
+          ],
+        ),
       ),
     );
   }

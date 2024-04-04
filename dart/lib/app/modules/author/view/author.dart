@@ -1,5 +1,4 @@
 import 'package:chuva_dart/app/modules/author/view/components/card_author.dart';
-import 'package:chuva_dart/app/modules/calendar/view/components/card_paper.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -46,7 +45,10 @@ class Author extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                   color: MyColor.gray),
             ),
-            const CardPaper()
+            /* const CardPaper(
+              title: "aaa",
+              color: "red",
+            ) */
           ]),
         ));
   }

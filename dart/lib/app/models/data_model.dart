@@ -79,7 +79,7 @@ class Data {
 
   @override
   String toString() {
-    return 'Data{ $id: id, $title: title }';
+    return 'Data{ $id: id, $title: title, $start: start }';
   }
 }
 
