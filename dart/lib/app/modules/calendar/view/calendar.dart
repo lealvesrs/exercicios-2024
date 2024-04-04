@@ -14,14 +14,6 @@ class Calendar extends StatefulWidget {
 
 class _CalendarState extends State<Calendar> {
   final controller = Get.put(CalendarController());
-/*   DateTime _currentDate = DateTime(2023, 11, 26);
-  bool _clicked = false;
-
-  void _changeDate(DateTime newDate) {
-    setState(() {
-      _currentDate = newDate;
-    });
-  } */
 
   @override
   Widget build(BuildContext context) {

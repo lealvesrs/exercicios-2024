@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:chuva_dart/app/models/data_model.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
@@ -13,6 +12,7 @@ class CalendarController extends GetxController {
 
   final dio = Dio();
   final listData = <Data>[].obs;
+  final currentDate = DateTime(2023, 11, 26).obs;
 
   void getPapers() async {
     final response = await dio.get(
@@ -30,5 +30,9 @@ class CalendarController extends GetxController {
     listData.clear();
     listData.addAll(decoded.data);
     listData.addAll(decoded2.data);
+  }
+
+  void changeDate(DateTime newDate) {
+    currentDate.value = newDate;
   }
 }
