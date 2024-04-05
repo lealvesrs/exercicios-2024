@@ -26,6 +26,12 @@ class _ButtonFavState extends State<ButtonFav> {
           child: ElevatedButton(
               onPressed: () {
                 controller.changeFavorite();
+                var snackBar = SnackBar(
+                  content: Text(controller.isFavorite(controller.paper.id)
+                      ? "Não vamos mais te lembrar dessa atividade"
+                      : "Vamos te lembrar dessa atividade"),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: controller.isLoading.value
