@@ -15,19 +15,21 @@ class CalendarController extends GetxController {
   final dio = Dio();
   final listData = <Data>[].obs;
   final filteredList = <Data>[].obs;
+  final activiesAuthor = <Data>[].obs;
   final currentDate = DateTime(2023, 11, 26).obs;
   var dateFormat = DateFormat('yyyy-MM-dd');
   var currentDateFormat =
       DateFormat('yyyy-MM-dd').format(DateTime(2023, 11, 26));
 
-  var id = 0;
-  var desc = "";
-  var authors = [];
-  var local = "";
-  var info = "";
-  var title = "";
-  var category = "";
-  var color = "";
+  Person author = Person(
+      id: 0,
+      name: "name",
+      institution: "",
+      picture: "",
+      bio: Bio(),
+      weight: 0,
+      role: Role(id: 0, label: Label()),
+      hash: "");
 
   void getPapers() async {
     final response = await dio.get(
@@ -84,7 +86,16 @@ class CalendarController extends GetxController {
     }
   }
 
-  void teste(Data item) {
+  var id = 0;
+  var desc = "";
+  var authors = [];
+  var local = "";
+  var info = "";
+  var title = "";
+  var category = "";
+  var color = "";
+
+  void getInfoPaper(Data item) {
     id = item.id;
     desc = item.description.ptBr ?? "";
     title = item.title.ptBr ?? "";
@@ -96,5 +107,11 @@ class CalendarController extends GetxController {
 
     debugPrint(dayOfWeek.toString());
     info = "${formatTime(item.start)}h - ${formatTime(item.end)}h";
+  }
+
+  void getActivitiesAuthor() {
+    activiesAuthor.assignAll(filteredList.where((e) {
+      return e.people.any((person) => person.id == author.id);
+    }));
   }
 }

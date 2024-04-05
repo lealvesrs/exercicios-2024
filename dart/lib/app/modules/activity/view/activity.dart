@@ -90,6 +90,12 @@ class _ActivityState extends State<Activity> {
                       itemBuilder: (BuildContext context, int index) {
                         final item = controller.authors[index];
                         return CardAuthor(
+                          onTap: () {
+                            context.go('/author');
+                            controller.author = item;
+                            controller.getActivitiesAuthor();
+                          },
+                          isAuthorPage: false,
                           id: item.id,
                           name: item.name,
                           institution: item.institution ?? "",
