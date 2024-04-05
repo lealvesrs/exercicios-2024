@@ -27,60 +27,60 @@ class CardPaper extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(CalendarController());
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 3.0),
-      child: GestureDetector(
-        onTap: () => {
-          context.go("/activity"),
-          controller.getInfoPaper(item),
-          controller.paper = item,
-          controller.getSubActivities(item.id)
-        },
-        child: Stack(
-          children: [
-            if (item.id == 8922) ...[
-              Positioned(
-                top: 4,
-                left: 5,
-                child: Card(
-                  elevation: 2,
-                  child: ClipPath(
-                    clipper: ShapeBorderClipper(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5))),
-                    child: Container(
-                      height: 100,
-                      width: MediaQuery.sizeOf(context).width - 15,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              left: BorderSide(
-                                  color: fromCssColor(color), width: 5))),
-                    ),
+    return GestureDetector(
+      onTap: () => {
+        context.go("/activity"),
+        controller.getInfoPaper(item),
+        controller.paper = item,
+        controller.getSubActivities(item.id)
+      },
+      child: Stack(
+        children: [
+          if (item.id == 8922) ...[
+            Positioned(
+              top: 7,
+              left: 7,
+              child: Card(
+                elevation: 2,
+                child: ClipPath(
+                  clipper: ShapeBorderClipper(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5))),
+                  child: Container(
+                    height: 100,
+                    width: MediaQuery.sizeOf(context).width - 15,
+                    decoration: BoxDecoration(
+                        border: Border(
+                            left: BorderSide(
+                                color: fromCssColor(color), width: 5))),
                   ),
                 ),
               ),
-              Positioned(
-                top: 2,
-                left: 3,
-                child: Card(
-                  elevation: 2,
-                  child: ClipPath(
-                    clipper: ShapeBorderClipper(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5))),
-                    child: Container(
-                      height: 100,
-                      width: MediaQuery.sizeOf(context).width - 12,
-                      decoration: BoxDecoration(
-                          border: Border(
-                              left: BorderSide(
-                                  color: fromCssColor(color), width: 5))),
-                    ),
+            ),
+            Positioned(
+              top: 4,
+              left: 3,
+              child: Card(
+                elevation: 2,
+                child: ClipPath(
+                  clipper: ShapeBorderClipper(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5))),
+                  child: Container(
+                    height: 100,
+                    width: MediaQuery.sizeOf(context).width - 10,
+                    decoration: BoxDecoration(
+                        border: Border(
+                            left: BorderSide(
+                                color: fromCssColor(color), width: 5))),
                   ),
                 ),
               ),
-            ],
-            Card(
+            ),
+          ],
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2.0),
+            child: Card(
               elevation: 2,
               color: fromCssColor("white"),
               child: ClipPath(
@@ -151,8 +151,8 @@ class CardPaper extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
