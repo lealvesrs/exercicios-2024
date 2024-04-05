@@ -76,8 +76,6 @@ class CalendarController extends GetxController {
     listData.addAll(decoded.data);
     listData.addAll(decoded2.data);
     filterList();
-
-    getSubActivities();
   }
 
   void changeDate(DateTime newDate) {
@@ -150,9 +148,9 @@ class CalendarController extends GetxController {
     }));
   }
 
-  void getSubActivities() {
+  void getSubActivities(int id) {
     subactivities.assignAll(filteredList.where((e) {
-      return e.parent == 8922;
+      return e.parent == id;
     }));
   }
 

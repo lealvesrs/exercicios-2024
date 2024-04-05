@@ -34,6 +34,7 @@ class CardPaper extends StatelessWidget {
           context.go("/activity"),
           controller.getInfoPaper(item),
           controller.paper = item,
+          controller.getSubActivities(item.id)
         },
         child: Stack(
           children: [
