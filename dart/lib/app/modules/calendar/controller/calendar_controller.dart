@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:chuva_dart/app/models/data_model.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 class CalendarController extends GetxController {
@@ -96,6 +96,8 @@ class CalendarController extends GetxController {
   var color = "";
 
   void getInfoPaper(Data item) {
+    initializeDateFormatting('pt_BR', null);
+
     id = item.id;
     desc = item.description.ptBr ?? "";
     title = item.title.ptBr ?? "";
@@ -103,10 +105,14 @@ class CalendarController extends GetxController {
     local = item.locations[0].title.ptBr ?? "";
     category = item.category.title.ptBr ?? "";
     color = item.category.color ?? "";
-    String dayOfWeek = DateFormat('EEEE').format(DateTime.parse(item.start));
+    String dayOfWeek =
+        DateFormat('EEEE', 'pt_BR').format(DateTime.parse(item.start));
 
-    debugPrint(dayOfWeek.toString());
-    info = "${formatTime(item.start)}h - ${formatTime(item.end)}h";
+    String dayCapitalize =
+        "${dayOfWeek[0].toUpperCase()}${dayOfWeek.substring(1)} ";
+
+    info =
+        "$dayCapitalize ${formatTime(item.start)}h - ${formatTime(item.end)}h";
   }
 
   void getActivitiesAuthor() {
