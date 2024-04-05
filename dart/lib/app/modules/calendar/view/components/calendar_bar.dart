@@ -27,8 +27,12 @@ class _CalendarBarState extends State<CalendarBar> {
               width: 50,
               height: 50,
               child: const Text(
+                textAlign: TextAlign.center,
                 "NOV 2023",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 17,
+                ),
               ),
             ),
             CalendarDays(title: "26", date: DateTime(2023, 11, 26)),
