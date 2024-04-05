@@ -14,6 +14,7 @@ class ButtonFav extends StatefulWidget {
 
 class _ButtonFavState extends State<ButtonFav> {
   final controller = Get.put(CalendarController());
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -40,7 +41,7 @@ class _ButtonFavState extends State<ButtonFav> {
                       color: MyColor.gray,
                       icon: Icons.refresh,
                     )
-                  : !controller.isFavorite()
+                  : !controller.isFavorite(controller.paper.id)
                       ? TitleButton(
                           title: "Adiconar à sua agenda",
                           color: MyColor.white,

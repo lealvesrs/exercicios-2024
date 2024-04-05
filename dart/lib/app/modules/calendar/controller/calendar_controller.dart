@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:chuva_dart/app/models/data_model.dart';
+import 'package:chuva_dart/database/db.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -11,8 +12,10 @@ class CalendarController extends GetxController {
   void onInit() {
     getPapers();
     super.onInit();
+    getFavorites();
   }
 
+  DatabaseHelper databaseHelper = DatabaseHelper();
   final dio = Dio();
   final listData = <Data>[].obs;
   final filteredList = <Data>[].obs;
@@ -50,6 +53,12 @@ class CalendarController extends GetxController {
       parent: 0,
       event: "");
   final isLoading = false.obs;
+  final favorites = <int>[];
+
+  void getFavorites() async {
+    List<int> returnFavorites = await databaseHelper.getFavorites();
+    favorites.assignAll(returnFavorites);
+  }
 
   void getPapers() async {
     final response = await dio.get(
@@ -141,18 +150,23 @@ class CalendarController extends GetxController {
     }));
   }
 
-  void changeFavorite() {
+  Future<void> clear() async {
+    await databaseHelper.clearFavorites();
+  }
+
+  Future<void> changeFavorite() async {
     isLoading(true);
-    favoriteList.contains(paper)
-        ? favoriteList.remove(paper)
-        : favoriteList.add(paper);
+    isFavorite(paper.id)
+        ? await databaseHelper.deleteFavorite(paper.id)
+        : await databaseHelper.insertFavorite(paper.id);
 
     Timer(const Duration(seconds: 2), () {
       isLoading(false);
     });
+    getFavorites();
   }
 
-  bool isFavorite() {
-    return favoriteList.contains(paper);
+  bool isFavorite(id) {
+    return favorites.contains(id);
   }
 }

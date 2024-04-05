@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:chuva_dart/app/helper/my_color.dart';
 import 'package:chuva_dart/app/models/data_model.dart';
 import 'package:chuva_dart/app/modules/calendar/controller/calendar_controller.dart';
 import 'package:flutter/material.dart';
@@ -47,36 +48,57 @@ class CardPaper extends StatelessWidget {
                     left: BorderSide(color: fromCssColor(color), width: 5))),
             child: Padding(
               padding: const EdgeInsets.only(left: 15.0),
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      info,
-                      style: const TextStyle(fontSize: 11),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 2.0),
-                      child: AutoSizeText(
-                        title,
-                        maxLines: 2,
-                        minFontSize: 18,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          height: 1.2,
-                        ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            info,
+                            style: const TextStyle(fontSize: 11),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2.0),
+                            child: AutoSizeText(
+                              title,
+                              maxLines: 2,
+                              minFontSize: 18,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                height: 1.2,
+                              ),
+                            ),
+                          ),
+                          AutoSizeText(
+                            author ?? "",
+                            maxLines: 1,
+                            minFontSize: 14,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                                fontSize: 14, color: fromCssColor('grey')),
+                          )
+                        ]),
+                  ),
+                  Visibility(
+                    visible: controller.isFavorite(item.id),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 8.0),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.bookmark,
+                            color: MyColor.gray,
+                          )
+                        ],
                       ),
                     ),
-                    AutoSizeText(
-                      author ?? "",
-                      maxLines: 1,
-                      minFontSize: 14,
-                      overflow: TextOverflow.ellipsis,
-                      style:
-                          TextStyle(fontSize: 14, color: fromCssColor('grey')),
-                    )
-                  ]),
+                  )
+                ],
+              ),
             ),
           ),
         ),
