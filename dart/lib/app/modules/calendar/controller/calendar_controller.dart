@@ -21,6 +21,7 @@ class CalendarController extends GetxController {
   final filteredList = <Data>[].obs;
   final favoriteList = <Data>[].obs;
   final activiesAuthor = <Data>[].obs;
+  final subactivities = <Data>[].obs;
   final currentDate = DateTime(2023, 11, 26).obs;
   var dateFormat = DateFormat('yyyy-MM-dd');
   var currentDateFormat =
@@ -75,6 +76,8 @@ class CalendarController extends GetxController {
     listData.addAll(decoded.data);
     listData.addAll(decoded2.data);
     filterList();
+
+    getSubActivities();
   }
 
   void changeDate(DateTime newDate) {
@@ -90,13 +93,11 @@ class CalendarController extends GetxController {
 
   String formatDate(date) {
     String formattedDate = dateFormat.format(date);
-
     return formattedDate;
   }
 
   String formatTime(timeString) {
     DateTime dateTime = DateTime.parse(timeString);
-
     String formattedTime = DateFormat('HH:mm').format(dateTime.toLocal());
     return formattedTime;
   }
@@ -126,7 +127,6 @@ class CalendarController extends GetxController {
 
   void getInfoPaper(Data item) {
     initializeDateFormatting('pt_BR', null);
-
     id = item.id;
     desc = item.description.ptBr ?? "";
     title = item.title.ptBr ?? "";
@@ -150,8 +150,10 @@ class CalendarController extends GetxController {
     }));
   }
 
-  Future<void> clear() async {
-    await databaseHelper.clearFavorites();
+  void getSubActivities() {
+    subactivities.assignAll(filteredList.where((e) {
+      return e.parent == 8922;
+    }));
   }
 
   Future<void> changeFavorite() async {

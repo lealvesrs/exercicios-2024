@@ -73,14 +73,12 @@ class _CalendarState extends State<Calendar> {
               ],
             )),
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: Obx(() {
+        return Column(
           children: [
             const CalendarBar(),
-            Obx(() {
-              return ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
+            Expanded(
+              child: ListView.builder(
                   itemCount: controller.filteredList.length,
                   itemBuilder: (BuildContext context, int index) {
                     final item = controller.filteredList[index];
@@ -92,11 +90,11 @@ class _CalendarState extends State<Calendar> {
                           "${item.type.title.ptBr} de ${controller.formatTime(item.start)} até ${controller.formatTime(item.end)}",
                       author: controller.formatAuthor(item.people),
                     );
-                  });
-            }),
+                  }),
+            ),
           ],
-        ),
-      ),
+        );
+      }),
     );
   }
 }

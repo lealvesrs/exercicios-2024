@@ -3,6 +3,7 @@ import 'package:chuva_dart/app/modules/activity/view/components/button_fav.dart'
 import 'package:chuva_dart/app/modules/author/view/components/card_author.dart';
 import 'package:chuva_dart/app/modules/activity/view/components/text_info.dart';
 import 'package:chuva_dart/app/modules/calendar/controller/calendar_controller.dart';
+import 'package:chuva_dart/app/modules/calendar/view/components/card_paper.dart';
 import 'package:flutter/material.dart';
 import 'package:from_css_color/from_css_color.dart';
 import 'package:get/get.dart';
@@ -74,12 +75,32 @@ class _ActivityState extends State<Activity> {
                 Text(
                   controller.authors.isNotEmpty
                       ? controller.authors[0].role.label.ptBr
-                      : "",
+                      : controller.subactivities.isNotEmpty
+                          ? "Sub-atividades"
+                          : "",
                   textAlign: TextAlign.start,
                   style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                       color: MyColor.gray),
+                ),
+                Visibility(
+                  visible: controller.subactivities.isNotEmpty,
+                  child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.subactivities.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = controller.subactivities[index];
+                        return CardPaper(
+                          item: item,
+                          title: item.title.ptBr ?? "",
+                          color: item.category.color ?? "red",
+                          info:
+                              "${item.type.title.ptBr} de ${controller.formatTime(item.start)} até ${controller.formatTime(item.end)}",
+                          author: controller.formatAuthor(item.people),
+                        );
+                      }),
                 ),
                 Visibility(
                   visible: controller.authors.isNotEmpty,

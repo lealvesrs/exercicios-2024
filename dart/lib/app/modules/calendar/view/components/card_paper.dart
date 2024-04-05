@@ -27,80 +27,130 @@ class CardPaper extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(CalendarController());
 
-    return GestureDetector(
-      onTap: () => {
-        context.go("/activity"),
-        controller.getInfoPaper(item),
-        controller.paper = item
-      },
-      child: Card(
-        elevation: 2,
-        color: fromCssColor("white"),
-        child: ClipPath(
-          clipper: ShapeBorderClipper(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5))),
-          child: Container(
-            height: 100,
-            width: double.infinity,
-            decoration: BoxDecoration(
-                border: Border(
-                    left: BorderSide(color: fromCssColor(color), width: 5))),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            info,
-                            style: const TextStyle(fontSize: 11),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 2.0),
-                            child: AutoSizeText(
-                              title,
-                              maxLines: 2,
-                              minFontSize: 18,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 18,
-                                height: 1.2,
-                              ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 3.0),
+      child: GestureDetector(
+        onTap: () => {
+          context.go("/activity"),
+          controller.getInfoPaper(item),
+          controller.paper = item,
+        },
+        child: Stack(
+          children: [
+            if (item.id == 8922) ...[
+              Positioned(
+                top: 4,
+                left: 5,
+                child: Card(
+                  elevation: 2,
+                  child: ClipPath(
+                    clipper: ShapeBorderClipper(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5))),
+                    child: Container(
+                      height: 100,
+                      width: MediaQuery.sizeOf(context).width - 15,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(
+                                  color: fromCssColor(color), width: 5))),
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 2,
+                left: 3,
+                child: Card(
+                  elevation: 2,
+                  child: ClipPath(
+                    clipper: ShapeBorderClipper(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5))),
+                    child: Container(
+                      height: 100,
+                      width: MediaQuery.sizeOf(context).width - 12,
+                      decoration: BoxDecoration(
+                          border: Border(
+                              left: BorderSide(
+                                  color: fromCssColor(color), width: 5))),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+            Card(
+              elevation: 2,
+              color: fromCssColor("white"),
+              child: ClipPath(
+                clipper: ShapeBorderClipper(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5))),
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      border: Border(
+                          left: BorderSide(
+                              color: fromCssColor(color), width: 5))),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  info,
+                                  style: const TextStyle(fontSize: 11),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 2.0),
+                                  child: AutoSizeText(
+                                    title,
+                                    maxLines: 2,
+                                    minFontSize: 18,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      height: 1.2,
+                                    ),
+                                  ),
+                                ),
+                                AutoSizeText(
+                                  author ?? "",
+                                  maxLines: 1,
+                                  minFontSize: 14,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      color: fromCssColor('grey')),
+                                )
+                              ]),
+                        ),
+                        Visibility(
+                          visible: controller.isFavorite(item.id),
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Icon(
+                                  Icons.bookmark,
+                                  color: MyColor.gray,
+                                )
+                              ],
                             ),
                           ),
-                          AutoSizeText(
-                            author ?? "",
-                            maxLines: 1,
-                            minFontSize: 14,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                                fontSize: 14, color: fromCssColor('grey')),
-                          )
-                        ]),
-                  ),
-                  Visibility(
-                    visible: controller.isFavorite(item.id),
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Icon(
-                            Icons.bookmark,
-                            color: MyColor.gray,
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );
