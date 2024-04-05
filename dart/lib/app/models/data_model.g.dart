@@ -35,7 +35,7 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
       changed: json['changed'] as int,
       start: json['start'] as String,
       end: json['end'] as String,
-      title: Title.fromJson(json['title'] as Map<String, dynamic>),
+      title: TitleClass.fromJson(json['title'] as Map<String, dynamic>),
       description:
           Description.fromJson(json['description'] as Map<String, dynamic>),
       category: Category.fromJson(json['category'] as Map<String, dynamic>),
@@ -73,11 +73,12 @@ Map<String, dynamic> _$DataToJson(Data instance) => <String, dynamic>{
       'event': instance.event,
     };
 
-Title _$TitleFromJson(Map<String, dynamic> json) => Title(
+TitleClass _$TitleClassFromJson(Map<String, dynamic> json) => TitleClass(
       ptBr: json['pt-br'] as String?,
     );
 
-Map<String, dynamic> _$TitleToJson(Title instance) => <String, dynamic>{
+Map<String, dynamic> _$TitleClassToJson(TitleClass instance) =>
+    <String, dynamic>{
       'pt-br': instance.ptBr,
     };
 
@@ -92,7 +93,7 @@ Map<String, dynamic> _$DescriptionToJson(Description instance) =>
 
 Category _$CategoryFromJson(Map<String, dynamic> json) => Category(
       id: json['id'] as int,
-      title: Title.fromJson(json['title'] as Map<String, dynamic>),
+      title: TitleClass.fromJson(json['title'] as Map<String, dynamic>),
       color: json['color'] as String?,
       backgroundColor: json['background-color'] as String?,
     );
@@ -106,7 +107,7 @@ Map<String, dynamic> _$CategoryToJson(Category instance) => <String, dynamic>{
 
 Location _$LocationFromJson(Map<String, dynamic> json) => Location(
       id: json['id'] as int,
-      title: Title.fromJson(json['title'] as Map<String, dynamic>),
+      title: TitleClass.fromJson(json['title'] as Map<String, dynamic>),
       parent: json['parent'] as int,
       map: json['map'],
     );
@@ -120,7 +121,7 @@ Map<String, dynamic> _$LocationToJson(Location instance) => <String, dynamic>{
 
 Type _$TypeFromJson(Map<String, dynamic> json) => Type(
       id: json['id'] as int,
-      title: Title.fromJson(json['title'] as Map<String, dynamic>),
+      title: TitleClass.fromJson(json['title'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TypeToJson(Type instance) => <String, dynamic>{

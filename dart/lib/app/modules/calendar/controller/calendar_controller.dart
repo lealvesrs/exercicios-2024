@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:chuva_dart/app/models/data_model.dart';
 import 'package:get/get.dart';
@@ -15,12 +16,12 @@ class CalendarController extends GetxController {
   final dio = Dio();
   final listData = <Data>[].obs;
   final filteredList = <Data>[].obs;
+  final favoriteList = <Data>[].obs;
   final activiesAuthor = <Data>[].obs;
   final currentDate = DateTime(2023, 11, 26).obs;
   var dateFormat = DateFormat('yyyy-MM-dd');
   var currentDateFormat =
       DateFormat('yyyy-MM-dd').format(DateTime(2023, 11, 26));
-
   Person author = Person(
       id: 0,
       name: "name",
@@ -30,6 +31,25 @@ class CalendarController extends GetxController {
       weight: 0,
       role: Role(id: 0, label: Label()),
       hash: "");
+
+  Data paper = Data(
+      id: 0,
+      changed: 0,
+      start: "",
+      end: "",
+      title: TitleClass(),
+      description: Description(),
+      category: Category(id: 0, title: TitleClass()),
+      locations: [],
+      type: Type(id: 0, title: TitleClass()),
+      papers: [],
+      people: [],
+      status: 0,
+      weight: 0,
+      addons: 0,
+      parent: 0,
+      event: "");
+  final isLoading = false.obs;
 
   void getPapers() async {
     final response = await dio.get(
@@ -119,5 +139,20 @@ class CalendarController extends GetxController {
     activiesAuthor.assignAll(filteredList.where((e) {
       return e.people.any((person) => person.id == author.id);
     }));
+  }
+
+  void changeFavorite() {
+    isLoading(true);
+    favoriteList.contains(paper)
+        ? favoriteList.remove(paper)
+        : favoriteList.add(paper);
+
+    Timer(const Duration(seconds: 2), () {
+      isLoading(false);
+    });
+  }
+
+  bool isFavorite() {
+    return favoriteList.contains(paper);
   }
 }

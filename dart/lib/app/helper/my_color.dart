@@ -7,4 +7,5 @@ class MyColor {
   static Color darkBlue = fromCssColor("#456189");
   static Color white = fromCssColor("white");
   static Color gray = fromCssColor("gray");
+  static Color lightgray = fromCssColor("lightgray");
 }

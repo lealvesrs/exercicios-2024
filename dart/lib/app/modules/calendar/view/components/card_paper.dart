@@ -27,7 +27,11 @@ class CardPaper extends StatelessWidget {
     final controller = Get.put(CalendarController());
 
     return GestureDetector(
-      onTap: () => {context.go("/activity"), controller.getInfoPaper(item)},
+      onTap: () => {
+        context.go("/activity"),
+        controller.getInfoPaper(item),
+        controller.paper = item
+      },
       child: Card(
         elevation: 2,
         color: fromCssColor("white"),
