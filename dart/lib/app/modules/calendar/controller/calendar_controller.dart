@@ -97,7 +97,7 @@ class CalendarController extends GetxController {
   String formatTime(timeString) {
     DateTime dateTime = DateTime.parse(timeString);
 
-    String formattedTime = DateFormat('HH:mm').format(dateTime);
+    String formattedTime = DateFormat('HH:mm').format(dateTime.toLocal());
     return formattedTime;
   }
 
