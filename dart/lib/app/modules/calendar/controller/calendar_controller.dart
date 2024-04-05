@@ -124,7 +124,6 @@ class CalendarController extends GetxController {
   var color = "";
 
   void getInfoPaper(Data item) {
-    initializeDateFormatting('pt_BR', null);
     id = item.id;
     desc = item.description.ptBr ?? "";
     title = item.title.ptBr ?? "";
@@ -132,6 +131,11 @@ class CalendarController extends GetxController {
     local = item.locations[0].title.ptBr ?? "";
     category = item.category.title.ptBr ?? "";
     color = item.category.color ?? "";
+    formatInformations(item);
+  }
+
+  void formatInformations(Data item) {
+    initializeDateFormatting('pt_BR', null);
     String dayOfWeek =
         DateFormat('EEEE', 'pt_BR').format(DateTime.parse(item.start));
 
