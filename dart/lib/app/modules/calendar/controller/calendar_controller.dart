@@ -125,13 +125,18 @@ class CalendarController extends GetxController {
 
   void getInfoPaper(Data item) {
     id = item.id;
-    desc = item.description.ptBr ?? "";
+    desc = removeTagsHtml(item.description.ptBr ?? "");
     title = item.title.ptBr ?? "";
     authors = item.people;
     local = item.locations[0].title.ptBr ?? "";
     category = item.category.title.ptBr ?? "";
     color = item.category.color ?? "";
     formatInformations(item);
+  }
+
+  String removeTagsHtml(String textoHtml) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+    return textoHtml.replaceAll(exp, '');
   }
 
   void formatInformations(Data item) {

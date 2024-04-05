@@ -69,7 +69,7 @@ class _ActivityState extends State<Activity> {
                 TextInfo(title: controller.local, icon: Icons.location_on),
                 const ButtonFav(),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(controller.desc),
                 ),
                 Text(
