@@ -29,7 +29,7 @@ class Scrapper {
    *   Return the data scrapped.
    */
   public function scrap(\DOMDocument $dom): array {
-    $array = [];
+    $array_data = [];
     $anchors = $dom->getElementsByTagName('a');
 
     foreach ($anchors as $anchor) {
@@ -67,10 +67,10 @@ class Scrapper {
               $authors
           );
 
-        $array[] = $paper;
+        $array_data[] = $paper;
       }
     }
-    return $array;
+    return $array_data;
   }
 
   /**
