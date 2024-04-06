@@ -28,7 +28,7 @@ class _CalendarBarState extends State<CalendarBar> {
               height: 50,
               child: const Text(
                 textAlign: TextAlign.center,
-                "NOV 2023",
+                "Nov 2023",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 17,
