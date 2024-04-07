@@ -35,7 +35,6 @@ void main() {
     });
 
     testWidgets('Verifica se favoritar funciona', (WidgetTester tester) async {
-      await loadActivityPage(tester);
       await expectLater(
         find.byType(Activity),
         matchesGoldenFile('../screenshots/ActivityPage-Unfavorited.png'),
