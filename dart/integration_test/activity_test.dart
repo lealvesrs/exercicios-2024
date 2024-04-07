@@ -32,16 +32,13 @@ void main() {
       //expect(find.text('Domingo 07:00h - 08:00h'), findsOneWidget);
       expect(find.text('Adicionar à sua agenda'), findsOneWidget);
       expect(find.text('Stephen William Hawking'), findsOneWidget);
-    });
 
-    testWidgets('Verifica se favoritar funciona', (WidgetTester tester) async {
       await expectLater(
         find.byType(Activity),
         matchesGoldenFile('../screenshots/ActivityPage-Unfavorited.png'),
       );
       await tester.tap(find.text('Adicionar à sua agenda'));
-      await tester.pumpAndSettle();
-
+      await tester.pump(const Duration(seconds: 15));
       expect(find.text('Remover da sua agenda'), findsOneWidget);
       await expectLater(
         find.byType(Activity),
