@@ -61,7 +61,7 @@ class CalendarController extends GetxController {
     favorites.assignAll(returnFavorites);
   }
 
-  void getPapers() async {
+  Future<void> getPapers() async {
     final response = await dio.get(
         'https://raw.githubusercontent.com/chuva-inc/exercicios-2024/master/dart/assets/activities.json');
 
