@@ -49,7 +49,7 @@ class _ButtonFavState extends State<ButtonFav> {
                     )
                   : !controller.isFavorite(controller.paper.id)
                       ? TitleButton(
-                          title: "Adiconar à sua agenda",
+                          title: "Adicionar à sua agenda",
                           color: MyColor.white,
                           icon: Icons.star,
                         )
