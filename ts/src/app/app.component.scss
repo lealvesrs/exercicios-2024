@@ -41,11 +41,11 @@ svg#clouds {
   }
 }
 
-
 .video {
   width: 800px;
 }
-.mask {
+
+.divMask {
   position: absolute;
   top: 0;
   left: 0;
@@ -53,6 +53,9 @@ svg#clouds {
   right: 0;
   width: 800px;
   cursor: pointer;
+}
+
+.mask {
   background-color: #cf5615;
   opacity: 35%;
 }
@@ -63,8 +66,8 @@ svg#clouds {
   nav {
     width: 100%;
 
-    ul{
-      list-style-type: none
+    ul {
+      list-style-type: none;
     }
 
     li {
@@ -73,28 +76,28 @@ svg#clouds {
       padding-left: 25px;
     }
 
-    #active{
+    #active {
       border-left: 5px solid $primary;
       background-color: $primary_subtle;
     }
   }
 }
 
-footer{
+footer {
   margin-top: 100px;
 }
-p{
+p {
   margin: 0;
 }
 
-summary{
+summary {
   list-style: none;
 }
 
-.hidden{
+.hidden {
   color: white;
 }
 
-.pointer{
+.pointer {
   cursor: pointer;
 }

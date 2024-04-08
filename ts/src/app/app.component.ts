@@ -10,8 +10,8 @@ export class AppComponent {
   topics = [{like:0, comment: 1, subject: "Assunto da pergunta aparece aqui", content: "Comecinho da pergunta aparece aqui neste relato inscreve-se no campo da anáise da dimensão e impacto de processo formativo situado impacto de processo formativo processo", author: "Letícia Alves de Oliveira" }];
 
   click() {
-    var element = document.getElementById("section_hidden");
-    var form = document.getElementById("form");
+    let element = document.getElementById("section_hidden");
+    let form = document.getElementById("form");
     if (element != null && form != null) {
       element.style.display = "none";
       form.classList.remove("d-none")
@@ -19,9 +19,9 @@ export class AppComponent {
   }
 
   createTopic() {
-    var feedback = document.getElementById("feedback");
-    var subject = (<HTMLInputElement>document.getElementById("subject")).value;
-    var content = (<HTMLInputElement>document.getElementById("content")).value;
+    let feedback = document.getElementById("feedback");
+    let subject = (<HTMLInputElement>document.getElementById("subject")).value;
+    let content = (<HTMLInputElement>document.getElementById("content")).value;
     if (content != "" && subject != "") {
       this.topics.push({
         like:0,
@@ -37,8 +37,8 @@ export class AppComponent {
 
   openComment(topic: { comment: number; }) {
     if(topic.comment>0){
-      var comment = document.getElementById("comment");
-    var status = comment?.classList.contains("d-block");
+      let comment = document.getElementById("comment");
+    let status = comment?.classList.contains("d-block");
     if (status) {
         comment?.classList.remove("d-block");
         comment?.classList.add("d-none")
@@ -51,5 +51,10 @@ export class AppComponent {
 
   like(index:number){
     this.topics[index].like++;
+  }
+
+  removeMaskVideo(){
+    let mask = document.getElementById("mask");
+    mask?.classList.remove("mask")
   }
 }

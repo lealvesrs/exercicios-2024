@@ -18,7 +18,7 @@
     </nav>
   </section>
 
-  <div role="main">
+  <div role="main" style="overflow-y: scroll">
     <header>
       <div class="bg-primary-subtle d-flex flex-nowrap align-items-center px-3 pt-2 gap-3">
         <div class="w-100">
@@ -55,8 +55,8 @@
         <h2 class="text-primary fw-bold h5 col-8 ">{{ title }}</h2>
 
         <div class="position-relative">
-          <img class="video" src="../assets/video.png">
-          <div class="mask p-4 d-flex flex-column justify-content-between">
+          <img class="video" src="../assets/video.png" >
+          <div class="mask divMask p-4 d-flex flex-column justify-content-between" id="mask" (click)="removeMaskVideo()">
             <p class="h4 text-white fw-bold">Análise sensorial de preparações funcionais desenvolvidas para escolares
               entre
               09
