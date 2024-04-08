@@ -165,36 +165,56 @@
           </button>
         </div>
 
-        <form (ngSubmit)="createTopic()" class="d-flex flex-wrap d-none p-3" id="form">
+        <form  class="d-flex flex-wrap d-none p-3" id="form">
           <div class="col-12 mb-3">
-            <label for="assunto" class="form-label text-primary fw-bold">Assunto:</label>
-            <input type="text" class="subject form-control rounded-0" name="assunto" formControlName="assunto"
+            <label for="subject" class="form-label text-primary fw-bold">Assunto:</label>
+            <input type="text" class="subject form-control rounded-0" id="subject" formControlName="subject"
               placeholder="Defina um tópico sucinto para notificar os autores...">
           </div>
           <div class="col-12">
-            <label for="conteudo" class="form-label text-primary fw-bold">Conteúdo:</label>
-            <textarea class="form-control rounded-0" name="conteudo" formControlName="conteudo"></textarea>
+            <label for="content" class="form-label text-primary fw-bold">Conteúdo:</label>
+            <textarea class="form-control rounded-0" id="content" formControlName="content"></textarea>
 
           </div>
 
           <div class="col-12 bg-secondary-subtle border-1 d-flex justify-content-end">
-            <button class="btn btn-primary btn-enviar text-white px-5 rounded-0" type="submit">Enviar</button>
+            <button class="btn btn-primary btn-enviar text-white px-5 rounded-0" type="button" (click)="createTopic()">Enviar</button>
           </div>
         </form>
       </div>
     </div>
 
+
+
+   <div class="card shadow card-body m-3 rounded" *ngFor="let c of comments">
+    <div class="p-2 answered-topic pointer">
+      <a class="ops-topic-subject h6 card-title text-decoration-none text-primary fw-bold ">
+        {{c.subject}}
+      </a>
+      <p class="card-subtitle h6 fw-bold">
+        <small> {{c.author}}</small>
+      </p>
+  
+      <p class="card-text my-3" >{{c.content}}</p>
+  
+      <div class="d-flex flex-row align-items-center gap-2">
+        <a class="btn text-primary p-0">
+          <i class="bi-three-dots-vertical text-primary"></i>
+        </a>
+        <a class="btn btn-primary">
+          <i class="bi-heart-fill text-white"></i>
+        </a>
+        <p>1 like</p>
+        <p>{{c.comment>0? c.comment+" resposta" : ""}}</p>
+      </div>
+    </div>
+  </div>
+  
     <br>
     <br>
 
-    <h3>O card que contém um tópico respondido precisa ter a classe .answered-topic, o assunto do tópico deve ter a
-      classe .ops-topic-subject</h3>
-    <div class="answered-topic">
-      <h4 class="ops-topic-subject">Título do tópico</h4>
-    </div>
-    <div class="comments-container">
-      Os comentários de um tópico devem estar encapsulados num elemento com a classe .comments-container
-    </div>
+   <div class="comments-container"></div>
+    
 
 
     <h3>Após submeter o formulário, a seguinte mensagem deve ser exibida: Aguardando feedback dos autores</h3>
