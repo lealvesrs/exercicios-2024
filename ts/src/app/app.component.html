@@ -1,54 +1,9 @@
 <div class="d-flex flex-nowrap vh-100">
 
-  <section class="sidebar shadow vh-100" style="width: 450px; height: 100%;">
-    <div class="bg-primary">
-      <p class="text-white text-center py-3 h3">SLACA 2019</p>
-    </div>
-    <img src="../assets/scala.png" width="100%">
-
-    <nav class="col-12">
-      <ul class="p-0">
-        <li class="optionSidebar"><a>Apresentação</a></li>
-        <li class="optionSidebar"><a>Comitês</a></li>
-        <li class="optionSidebar"><a>Autores</a></li>
-        <li class="optionSidebar"><a>Eixos temáticos</a></li>
-        <li id="active" class="optionSidebar"><a>Trabalhos</a></li>
-        <li class="optionSidebar"><a>Contato</a></li>
-      </ul>
-    </nav>
-  </section>
+  <sidebar-component></sidebar-component>
 
   <div role="main" style="overflow-y: scroll">
-    <header>
-      <div class="bg-primary-subtle d-flex flex-nowrap align-items-center px-3 pt-2 gap-3">
-        <div class="w-100">
-          <p class="m-0">Anais do Simpósio Latino Americano de Ciências de Alimentos</p>
-          <h1 class="h5 m-0">Anais do 13º Simpósio Latino Americano de Ciência de Alimentos</h1>
-          <p>ISSN: 1234-5678</p>
-        </div>
-
-
-        <div class="dropdown">
-          <button class="btn btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2"
-            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            PT-BR
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-            <button class="dropdown-item" type="button">PT-BR</button>
-            <button class="dropdown-item" type="button">EN</button>
-          </div>
-        </div>
-
-
-        <div class="col-auto d-flex justify-content-end align-items-center gap-1">
-          <div class="d-flex flex-column align-items-end">
-            <p class="m-0">Bem vindo!</p>
-            <p>alguem12&#64;galoascience.com</p>
-          </div>
-          <img class="rounded-circle" src="./assets/usuario.png" width="36px">
-        </div>
-      </div>
-    </header>
+    <header-component></header-component>
 
     <div class="mx-3 my-3 d-flex">
       <div class="col-9">
@@ -194,16 +149,16 @@
 
 
     <div *ngFor="let t of topics; index as i">
-      <div class="card shadow card-body mx-3 mt-2 rounded">
-        <div class="p-2 answered-topic pointer">
-          <a class="ops-topic-subject h6 card-title text-decoration-none text-primary fw-bold ">
+      <div class="card shadow card-body mx-3 mt-2 rounded" >
+        <div class="p-2 answered-topic ">
+          <a class="ops-topic-subject pointer h6 card-title text-decoration-none text-primary fw-bold" (click)="openComment(t)">
             {{t.subject}}
           </a>
           <p class="card-subtitle h6 fw-bold">
             <small> {{t.author}}</small>
           </p>
   
-          <p class="card-text my-3" (click)="openComment(t)">{{t.content}} </p>
+          <p class="card-text my-3" >{{t.content}} </p>
   
           <div class="d-flex flex-row align-items-center gap-2">
             <a class="btn text-primary p-0">
