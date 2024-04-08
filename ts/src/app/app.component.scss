@@ -15,9 +15,6 @@ h6 {
   margin: 8px 0;
 }
 
-h2 {
-  margin-top: 50px;
-}
 
 p {
   margin: 0;
@@ -256,4 +253,17 @@ svg#clouds {
   h2, a {
     font-size: 12px;
   }
+}
+
+.video{
+  width: 800px;
+}
+.mask{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 800px;
+  cursor: pointer;
 }
