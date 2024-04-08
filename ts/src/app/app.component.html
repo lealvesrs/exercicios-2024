@@ -1,6 +1,6 @@
 <div class="d-flex flex-nowrap vh-100">
 
-  <section class="sidebar shadow vh-100" style="width: 220px;">
+  <section class="sidebar shadow vh-100" style="width: 450px; height: 100%;">
     <div class="bg-primary">
       <p class="text-white text-center py-3 h3">SLACA 2019</p>
     </div>
@@ -18,10 +18,10 @@
     </nav>
   </section>
 
-  <div class="col" role="main">
-    <header class="col-auto">
-      <div class="bg-primary-subtle d-flex flex-nowrap align-items-center px-5 pt-2 gap-3">
-        <div class="col">
+  <div role="main">
+    <header>
+      <div class="bg-primary-subtle d-flex flex-nowrap align-items-center px-3 pt-2 gap-3">
+        <div class="w-100">
           <p class="m-0">Anais do Simpósio Latino Americano de Ciências de Alimentos</p>
           <h1 class="h5 m-0">Anais do 13º Simpósio Latino Americano de Ciência de Alimentos</h1>
           <p>ISSN: 1234-5678</p>
@@ -50,13 +50,31 @@
       </div>
     </header>
 
-    <div class="mx-5 my-3">
-      <div class="row d-flex justify-content-between align-items-center mt-3">
-
+    <div class="mx-3 my-3 d-flex">
+      <div class="col-9">
         <h2 class="text-primary fw-bold h5 col-8 ">{{ title }}</h2>
 
-        <div class="col-3">
-          <div class="d-flex flex-nowrap gap-3 mb-2">
+        <div class="position-relative">
+          <img class="video" src="../assets/video.png">
+          <div class="mask p-4 d-flex flex-column justify-content-between">
+            <p class="h4 text-white fw-bold">Análise sensorial de preparações funcionais desenvolvidas para escolares
+              entre
+              09
+              e 15 anos, do município de Campinas/SP </p>
+            <div class="d-flex flex-nowrap gap-4 pb-4">
+              <img class="rounded-circle border border-2 border-primary" width="80px" src="../assets/usuario.png">
+              <div class="d-flex flex-column">
+                <p class="title h3 fw-bold text-white">Beatriz Christiane Melo</p>
+                <p class="title h5 fw-bold text-white">FCA / Universidade Estadual de Campinas</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-3 d-flex justify-content-center flex-column align-items-center">
+        <div class="col ">
+          <div class="d-flex flex-nowrap gap-2 mb-2">
             <button type="button" class="btn btn-primary text-white">
               <i class="bi bi-download text-white p-2"></i>Download
             </button>
@@ -69,73 +87,125 @@
             </button>
 
           </div>
-          <a class="text-decoration-none text-primary p-4 fw-bold" href="#">COMO CITAR ESSE
+          <a class="text-decoration-none text-primary fw-bold" href="#">COMO CITAR ESSE
             TRABALHO?</a>
         </div>
-      </div>
 
+        <div class="col-11">
+          <div class="card">
+            <div class="card-header h5 bg-primary-subtle">Detalhes</div>
+            <div class="card-body">
+              <p>Tipo de apresentação: <b>Pôster</b></p>
+              <p>Eixo temático: <b>Alimentação e saúde (AS)</b></p>
+              <p>Palavras-chaves: <b>Alimentos funcionais, alimentação escolar.</b></p>
 
+              <div class="py-3">
+                <p class="fw-bold">Autores:</p>
+                <p>Galileo Galilei<sup>1</sup></p>
+                <p>Berta Lange de Morretes<sup>2</sup></p>
+                <p>Isaac Newton<sup>3</sup></p>
+                <p>Cesar Lattes<sup>1</sup></p>
+                <p>Stephen Hawking<sup>4</sup></p>
+              </div>
 
-      <div class="position-relative">
-        <img class="video" src="../assets/video.png">
-        <div class="mask p-4 d-flex flex-column justify-content-between">
-          <p class="h4 text-white fw-bold">Análise sensorial de preparações funcionais desenvolvidas para escolares
-            entre
-            09
-            e 15 anos, do município de Campinas/SP </p>
-          <div class="d-flex flex-nowrap gap-4 pb-4">
-            <img class="rounded-circle border border-2 border-primary" width="80px" src="../assets/usuario.png">
-            <div class="d-flex flex-column">
-              <p class="title h3 fw-bold text-white">Beatriz Christiane Melo</p>
-              <p class="title h5 fw-bold text-white">FCA / Universidade Estadual de Campinas</p>
+              <small>
+                <p><sup>1</sup>Universidade Estadual de Campinas</p>
+                <p><sup>2</sup>Universidade de São Paulo</p>
+                <p><sup>3</sup>Instituto Nacional de Pesquisas Espaciais</p>
+                <p><sup>4</sup>Universidade Federal do Rio de Janeiro</p>
+              </small>
             </div>
           </div>
         </div>
       </div>
-
-
-      <!-- Resources -->
-      <h2>Informações importantes</h2>
-      <p>Os seguintes elementos devem existir no seu aplicativo renderizado (use o inspect):</p>
-      <div id="required-elements">
-        <h3>O título do trabalho deve ser um h2: </h3>
-        <h2>Análise sensorial de preparações funcionais desenvolvidas para escolares entre 09 e 15 anos, do município de
-          Campinas/SP'</h2>
-
-        <h3>O elemento de expandir resumo precisa ter a classe .btn-show-more</h3>
-        <a href="#" class="btn-show-more">ver mais</a>
-
-        <h3>O elemento de criar tópico precisa ter a classe .btn-create-topic</h3>
-        <a href="#" class="btn-create-topic">criar tópico</a>
-
-        <h3>O card que contém um tópico respondido precisa ter a classe .answered-topic, o assunto do tópico deve ter a
-          classe .ops-topic-subject</h3>
-        <div class="answered-topic">
-          <h4 class="ops-topic-subject">Título do tópico</h4>
-        </div>
-        <div class="comments-container">
-          Os comentários de um tópico devem estar encapsulados num elemento com a classe .comments-container
-        </div>
-
-        <form>
-          Assunto:
-          <input class="subject" placeholder="Defina um tópico sucinto para notificar os autores...">
-          Conteúdo:
-          <!-- <input> -->
-          <button class="btn-enviar">Enviar</button>
-        </form>
-
-        <h3>Após submeter o formulário, a seguinte mensagem deve ser exibida: Aguardando feedback dos autores</h3>
-      </div>
-
-      <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677"
-        viewBox="0 0 2611.084 485.677">
-        <title>Gray Clouds Background</title>
-        <path id="Path_39" data-name="Path 39"
-          d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
-          transform="translate(142.69 -634.312)" fill="#eee" />
-      </svg>
-
     </div>
 
+    <div class="mx-3 my-3 d-flex flex-column">
+      <div class="col my-4 section border border-1">
+        <div class="section_header bg-primary-subtle p-3 fw-bold h5">Resumo</div>
+        <div class="p-3">
+          <details>
+            <summary class="btn-show-more">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ad quo ipsum,
+              numquam at reprehenderit,
+              quis, ducimus consequuntur esse non magnam molestiae sequi aliquam facilis commodi? Dicta illo laudantium
+              aperiam dolorum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, quibusdam magni!
+              Officiis deserunt, quam cupiditate odio et ipsum architecto asperiores consectetur nulla quia ducimus
+              natus omnis inventore temporibus quo hic!</summary>
+            <br>
+            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut, possimus quasi quis aspernatur dolore ex
+              explicabo doloribus ipsam, similique odit numquam fuga voluptatum sunt dolorum blanditiis consequuntur
+              harum
+              voluptatem deleniti.</p>
+            <br>
+            <p>Aenean vitae metus ac odio posuere gravida sit amet eget elit. Quisque vitae suscipit massa. Cras sed
+              lacus magna. Fusce mattis venenatis risus. Aenean finibus vitae nisi at vulputate. Nam finibus facilisis
+              turpis in laoreet. Praesent cursus odio a justo posuere, id efficitur felis elementum. Integer porta dolor
+              et cursus gravida. Suspendisse rhoncus luctus diam, volutpat tempor arcu dignissim ut. Nulla facilisi.
+              Pellentesque porttitor felis in nulla viverra varius. Cras efficitur nibh massa.</p>
+
+          </details>
+        </div>
+      </div>
+
+      <div class="col section border border-1">
+        <div class="section_header bg-primary-subtle p-3 fw-bold h5">Discussões</div>
+        <div class="text-center p-2">
+          <h3 class="text-primary text-center h5">Compartilhe suas ideias ou dúvidas com os autores!</h3>
+
+          <div class="d-flex justify-content-center gap-2 p-3">
+            <img src="../assets/icone1.png">
+            <img src="../assets/icone2.png">
+            <img src="../assets/icone3.png">
+          </div>
+          <p class="text-center">Sabia que o maior estímulo no desenvolvimento científico e cultural é a curiosidade?
+            Deixe seus questionamentos ou sugestões para o autor!</p>
+
+          <button type="button" class="btn btn-primary text-white btn-create-topic">
+            <i class="bi bi-plus-lg text-white p-2"></i>criar tópico
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <br>
+    <!-- Resources -->
+    <h2>Informações importantes</h2>
+    <p>Os seguintes elementos devem existir no seu aplicativo renderizado (use o inspect):</p>
+    <div id="required-elements">
+      <h3>O título do trabalho deve ser um h2: </h3>
+      <h2>Análise sensorial de preparações funcionais desenvolvidas para escolares entre 09 e 15 anos, do município de
+        Campinas/SP'</h2>
+
+      <h3>O elemento de expandir resumo precisa ter a classe .btn-show-more</h3>
+      <a href="#" class="btn-show-more">ver mais</a>
+
+
+      <h3>O card que contém um tópico respondido precisa ter a classe .answered-topic, o assunto do tópico deve ter a
+        classe .ops-topic-subject</h3>
+      <div class="answered-topic">
+        <h4 class="ops-topic-subject">Título do tópico</h4>
+      </div>
+      <div class="comments-container">
+        Os comentários de um tópico devem estar encapsulados num elemento com a classe .comments-container
+      </div>
+
+      <form>
+        Assunto:
+        <input class="subject" placeholder="Defina um tópico sucinto para notificar os autores...">
+        Conteúdo:
+        <!-- <input> -->
+        <button class="btn-enviar">Enviar</button>
+      </form>
+
+      <h3>Após submeter o formulário, a seguinte mensagem deve ser exibida: Aguardando feedback dos autores</h3>
+    </div>
+
+
+    <footer>
+      <img src="../assets/footer.png">
+    </footer>
+
   </div>
+
+</div>
