@@ -55,6 +55,7 @@ class CalendarController extends GetxController {
       event: "");
   final isLoading = false.obs;
   final favorites = <int>[];
+  final Map<String, dynamic> mapSubactivities = {};
 
   void getFavorites() async {
     List<int> returnFavorites = await databaseHelper.getFavorites();
@@ -67,8 +68,7 @@ class CalendarController extends GetxController {
 
     final decoded = DataModel.fromJson(json.decode(response.data));
 
-    final response2 = await dio.get(
-        'https://raw.githubusercontent.com/chuva-inc/exercicios-2024/master/dart/assets/activities-1.json');
+    final response2 = await dio.get(decoded.links.next);
 
     final decoded2 = DataModel.fromJson(json.decode(response2.data));
 
@@ -161,6 +161,8 @@ class CalendarController extends GetxController {
     subactivities.assignAll(filteredList.where((e) {
       return e.parent == id;
     }));
+
+    mapSubactivities.assignAll({"idParent": id, "papers": subactivities});
   }
 
   Future<void> changeFavorite() async {

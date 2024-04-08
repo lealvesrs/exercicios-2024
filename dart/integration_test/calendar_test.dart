@@ -28,7 +28,7 @@ void main() {
       await tester.pumpWidget(const ChuvaDart());
       await controller.getPapers();
       await tester.pumpAndSettle();
-      // Check that 'Palestra de 09:30 até 12:00' is not on the screen before tapping '28'.
+      // Check that 'Analisando Estruturas Alienígenas: Uma Visão Teórica' is not on the screen before tapping '28'.
       expect(find.text('Analisando Estruturas Alienígenas: Uma Visão Teórica'),
           findsNothing);
       await expectLater(
@@ -47,7 +47,7 @@ void main() {
 
       await tester.pumpAndSettle();
 
-      // Then check if 'Palestra de 09:30 até 10:00' appears.
+      // Then check if 'Analisando Estruturas Alienígenas: Uma Visão Teórica' appears.
 
       expect(find.text('Analisando Estruturas Alienígenas: Uma Visão Teórica'),
           findsOneWidget);

@@ -36,7 +36,7 @@ class CardPaper extends StatelessWidget {
       },
       child: Stack(
         children: [
-          if (item.id == 8922) ...[
+          if (item.id == controller.mapSubactivities["idParent"]) ...[
             Positioned(
               top: 7,
               left: 7,
