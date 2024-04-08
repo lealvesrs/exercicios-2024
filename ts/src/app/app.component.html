@@ -121,7 +121,7 @@
     </div>
 
     <div class="mx-3 my-3 d-flex flex-column">
-      <div class="col my-4 section border border-1">
+      <div class="col my-4 section shadow">
         <div class="section_header bg-primary-subtle p-3 fw-bold h5">Resumo</div>
         <div class="p-3">
           <details>
@@ -147,7 +147,7 @@
         </div>
       </div>
 
-      <div class="col section border border-1">
+      <div class="col section shadow">
         <div class="section_header bg-primary-subtle p-3 fw-bold h5">Discussões</div>
         <div class="text-center p-2 section_content" id="section_hidden">
           <h3 class="text-primary text-center h5">Compartilhe suas ideias ou dúvidas com os autores!</h3>
@@ -186,7 +186,7 @@
 
 
 
-   <div class="card shadow card-body m-3 rounded" *ngFor="let c of comments">
+   <div class="card shadow card-body mx-3 mt-5 rounded" *ngFor="let c of comments">
     <div class="p-2 answered-topic pointer">
       <a class="ops-topic-subject h6 card-title text-decoration-none text-primary fw-bold ">
         {{c.subject}}
