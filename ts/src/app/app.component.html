@@ -130,7 +130,7 @@
               quis, ducimus consequuntur esse non magnam molestiae sequi aliquam facilis commodi? Dicta illo laudantium
               aperiam dolorum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, quibusdam magni!
               Officiis deserunt, quam cupiditate odio et ipsum architecto asperiores consectetur nulla quia ducimus
-              natus omnis inventore temporibus quo hic!</summary>
+              natus omnis inventore temporibus quo hic! <span class="text-primary fw-bold">ver mais</span></summary>
             <br>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ut, possimus quasi quis aspernatur dolore ex
               explicabo doloribus ipsam, similique odit numquam fuga voluptatum sunt dolorum blanditiis consequuntur
@@ -149,7 +149,7 @@
 
       <div class="col section border border-1">
         <div class="section_header bg-primary-subtle p-3 fw-bold h5">Discussões</div>
-        <div class="text-center p-2">
+        <div class="text-center p-2 section_content" id="section_hidden">
           <h3 class="text-primary text-center h5">Compartilhe suas ideias ou dúvidas com os autores!</h3>
 
           <div class="d-flex justify-content-center gap-2 p-3">
@@ -160,46 +160,45 @@
           <p class="text-center">Sabia que o maior estímulo no desenvolvimento científico e cultural é a curiosidade?
             Deixe seus questionamentos ou sugestões para o autor!</p>
 
-          <button type="button" class="btn btn-primary text-white btn-create-topic">
+          <button type="button" class="btn btn-primary text-white btn-create-topic" (click)="click()">
             <i class="bi bi-plus-lg text-white p-2"></i>criar tópico
           </button>
         </div>
+
+        <form (ngSubmit)="createTopic()" class="d-flex flex-wrap d-none p-3" id="form">
+          <div class="col-12 mb-3">
+            <label for="assunto" class="form-label text-primary fw-bold">Assunto:</label>
+            <input type="text" class="subject form-control rounded-0" name="assunto" formControlName="assunto"
+              placeholder="Defina um tópico sucinto para notificar os autores...">
+          </div>
+          <div class="col-12">
+            <label for="conteudo" class="form-label text-primary fw-bold">Conteúdo:</label>
+            <textarea class="form-control rounded-0" name="conteudo" formControlName="conteudo"></textarea>
+
+          </div>
+
+          <div class="col-12 bg-secondary-subtle border-1 d-flex justify-content-end">
+            <button class="btn btn-primary btn-enviar text-white px-5 rounded-0" type="submit">Enviar</button>
+          </div>
+        </form>
       </div>
     </div>
-
 
     <br>
-    <!-- Resources -->
-    <h2>Informações importantes</h2>
-    <p>Os seguintes elementos devem existir no seu aplicativo renderizado (use o inspect):</p>
-    <div id="required-elements">
-      <h3>O título do trabalho deve ser um h2: </h3>
-      <h2>Análise sensorial de preparações funcionais desenvolvidas para escolares entre 09 e 15 anos, do município de
-        Campinas/SP'</h2>
+    <br>
 
-      <h3>O elemento de expandir resumo precisa ter a classe .btn-show-more</h3>
-      <a href="#" class="btn-show-more">ver mais</a>
-
-
-      <h3>O card que contém um tópico respondido precisa ter a classe .answered-topic, o assunto do tópico deve ter a
-        classe .ops-topic-subject</h3>
-      <div class="answered-topic">
-        <h4 class="ops-topic-subject">Título do tópico</h4>
-      </div>
-      <div class="comments-container">
-        Os comentários de um tópico devem estar encapsulados num elemento com a classe .comments-container
-      </div>
-
-      <form>
-        Assunto:
-        <input class="subject" placeholder="Defina um tópico sucinto para notificar os autores...">
-        Conteúdo:
-        <!-- <input> -->
-        <button class="btn-enviar">Enviar</button>
-      </form>
-
-      <h3>Após submeter o formulário, a seguinte mensagem deve ser exibida: Aguardando feedback dos autores</h3>
+    <h3>O card que contém um tópico respondido precisa ter a classe .answered-topic, o assunto do tópico deve ter a
+      classe .ops-topic-subject</h3>
+    <div class="answered-topic">
+      <h4 class="ops-topic-subject">Título do tópico</h4>
     </div>
+    <div class="comments-container">
+      Os comentários de um tópico devem estar encapsulados num elemento com a classe .comments-container
+    </div>
+
+
+    <h3>Após submeter o formulário, a seguinte mensagem deve ser exibida: Aguardando feedback dos autores</h3>
+
 
 
     <footer>
