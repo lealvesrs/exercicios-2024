@@ -82,6 +82,8 @@ class _CalendarState extends State<Calendar> {
                   itemCount: controller.filteredList.length,
                   itemBuilder: (BuildContext context, int index) {
                     final item = controller.filteredList[index];
+
+                    controller.getSubActivities(item.id);
                     return CardPaper(
                       item: item,
                       title: item.title.ptBr ?? "",

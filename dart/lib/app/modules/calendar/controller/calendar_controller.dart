@@ -162,7 +162,9 @@ class CalendarController extends GetxController {
       return e.parent == id;
     }));
 
-    mapSubactivities.assignAll({"idParent": id, "papers": subactivities});
+    if (subactivities.any((element) => element.parent == id)) {
+      mapSubactivities.assignAll({"idParent": id, "papers": subactivities});
+    }
   }
 
   Future<void> changeFavorite() async {
