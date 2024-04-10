@@ -5,3 +5,25 @@ p {
     margin: 0;
   }
   
+  :root{
+    --primary: #ed7839;
+    --primary-subtle: #fdf1eb;
+}
+
+.bg-primary{
+    background-color: var(--primary) !important;
+}
+
+.text-primary{
+  color: var(--primary) !important;
+}
+
+.bg-primary-subtle{
+  background-color: var(--primary-subtle) !important;
+}
+
+.btn-primary{
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+
+}
